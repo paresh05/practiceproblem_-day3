@@ -1,0 +1,160 @@
+1) 	cat /etc/passwd | awk -F: '{print $1}'
+	cat /etc/passwd | awk -F: '{if ($3 >=1000) print $1 "  " $2 "   " $3 "   " $4}'
+	nobody  x   65534   65534
+	paresh  x   1000   1000
+
+2)  	$ for file in `ls *.txt`; do folderName=`echo $file | awk -F. '{print $1}'`; mkdir $folderName; mv $file $folderName; done
+	$ ls
+ 	Dell/  'My Music'@  'My Pictures'@  'My Videos'@   abc/   access.log   anything/   def/   demo/   desktop.ini   ghi/  'java env.txt'   jkl/
+ 
+3)	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ touch access.log.1
+   	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ for file in `ls *.log.1`
+	> do
+	> baseName=` echo $file | awk -F. '{print $1}'`
+	> dt=`date +%d%m%Y | awk '{print $0}'`
+	> mv $file $baseName$dt'.log.1'
+	> done
+
+
+4) 	paresh@DESKTOP-3U95R3F:/var/log$ for i in `ls /var/log/*.log`; do modified_date=`stat $i | grep -i "modify" | awk '{print $2}'`; present_date=`date +%Y-%m-%d`; diff=`dateutils.ddiff $modified_date $present_date`; if [ $diff -gt 7 ]; then cp $i Backup; fi; done
+
+5)	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cat access.log | awk '{print $7}' | sort | uniq -c | sort -nr | head -4
+	199 /vendor.js
+    	199 /scripts.js
+    	199 /runtime.js
+    	199 /favicon.ico
+
+6)	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cat access.log | awk '{print $4, $7}' | cut -c 14-15,22- | awk '$1 == 12 {print $2}' | sort -n | uniq -c | sort -r | head -4
+	62 /login
+     	60 /favicon.ico
+     	58 /vendor.js
+     	58 /styles.js
+
+7)	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cat access.log | awk '{print $4, $9}' | cut -c 14-15,22- | awk '$1 == 12 {print $2}' | uniq -c | sort -r | head -4
+	341 200
+    	261 200
+     	73 200
+    	65 200
+
+8) 	$ cat access.log | awk '{print $1}' | sort | uniq -c | tail
+	323 10.56.21.2
+    	251 10.56.22.3
+    	214 10.56.3.4
+      	9 10.56.34.4
+    	242 10.56.4.2
+      	7 10.56.44.4
+     	40 10.56.46.2
+    	168 10.56.5.2
+    	285 10.56.6.4
+    	186 10.56.9.3
+
+9)	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+ 	if (find ~ original22 | grep -c original22) > 0; then echo file already exists; else mkdir original22; fi
+
+10) 	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+	$ cd
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+	$ echo $?
+	0
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+	$ hello
+	bash: hello: command not found
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+	$ echo $?
+	127
+
+11) 	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+	$ [ -z $usersecret ] && export usersecret="dH34xJaa23" || echo "set"
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~
+	$ [ -z $usersecret ] && export usersecret="dH34xJaa23" || echo "set"
+	set
+
+
+12) 	paresh@DESKTOP-3U95R3F:/var/log$ grep -r systemd
+	grep: btmp: Permission denied
+	dpkg.log:2020-08-21 17:31:54 status triggers-pending systemd:amd64 237-3ubuntu10.42
+	dpkg.log:2020-08-21 17:31:55 trigproc systemd:amd64 237-3ubuntu10.42 <none>
+	dpkg.log:2020-08-21 17:31:55 status half-configured systemd:amd64 237-3ubuntu10.42
+	dpkg.log:2020-08-21 17:31:55 status installed systemd:amd64 237-3ubuntu10.42
+	dpkg.log:2020-08-21 17:52:12 status triggers-pending systemd:amd64 237-3ubuntu10.42
+	dpkg.log:2020-08-21 17:52:19 trigproc systemd:amd64 237-3ubuntu10.42 <none>
+	dpkg.log:2020-08-21 17:52:19 status half-configured systemd:amd64 237-3ubuntu10.42
+	dpkg.log:2020-08-21 17:52:19 status installed systemd:amd64 237-3ubuntu10.42
+	grep: tallylog: Permission denied
+	paresh@DESKTOP-3U95R3F:/var/log$ grep -r systemd -c
+	alternatives.log:0
+	apt/eipp.log.xz:0
+	apt/history.log:0
+	apt/term.log:0
+	grep: btmp: Permission denied
+	dpkg.log:8
+	lastlog:0
+	grep: tallylog: Permission denied
+	wtmp:0
+
+13)	paresh@DESKTOP-3U95R3F:~$ ps -efo pid,ppid,cmd,%mem,%cpu
+  	PID  PPID           CMD                          %MEM  %CPU
+   	35    34   -bash HOSTTYPE=x86_64 LANG=            0.0   1.3
+   	60    35   \_ ps -efo pid,ppid,cmd,%m             0.0   0.0
+    	7      6    -bash HOSTTYPE=x86_64 LANG=           0.0   0.0
+
+14) i) paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cat data.csv | awk '{if($4>100000)print $2 "          " $7}'
+	EmployeeName           TotalPay
+	NATHANIEL          	567595
+	GARY          		538909
+	ALBERT        	        335279
+	PATRICK                 326373
+	DAVID                   316285
+	DAVID          		307899
+	JOANNE          	302377
+	EDWARD          	294580
+
+    ii) cat data.csv | grep -i captain | awk '{ TotalPay+=$7}END {print TotalPay}'
+	1171796
+
+    iii) paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	 $ cat data.csv | awk '{if(($5<10000)&&($5>7000))print $3 "          " $5}'
+	 DEPUTYCHIEF          9737
+	 ASSTDEPUTY          8601
+    iv)  $ cat data.csv | awk '{ BasePay+=$4}END {print BasePay/NR}'
+	 157972
+
+15)
+	$ mkdir original updated
+	$ touch original.sh updated.sh
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cp original.sh original
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cp updated.sh updated
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ nano original.sh
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ nano updated.sh
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cp original.sh original
+	paresh.praveen_ymedi@DESKTOP-3U95R3F MINGW64 ~/Documents (master)
+	$ cp updated.sh updated
+	$ diff -u original.sh updated.sh
+	--- original.sh 2021-08-17 22:10:56.385055700 +0530
+	+++ updated.sh  2021-08-17 22:11:29.974083300 +0530
+	@@ -1,3 +1,3 @@
+	 hello everyone
+ 	to find the differences between original and updated file
+	-this is original file
+	+this is updated file
+
+	mkdir original-backup
+	$ cp -r original.sh original-backup/
+	$ nano original-backup/ original.sh
+	$ diff -u original.sh updated.sh
+
+
+
+
+
